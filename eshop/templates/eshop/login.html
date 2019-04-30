@@ -1,0 +1,13 @@
+{% extends 'eshop/index.html' %}
+
+{% block title %}
+Register - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Войти</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'eshop/index.html' %}
+
+{% block title %}
+Register - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<form action="" method="post">
+  {% csrf_token %}
+  <!-- as_p для того, чтобы каждый элемент формы был с новой строки -->
+  {{ form.as_p }}
+  <button type="submit">Зарегистрироваться</button>
+</form>
+{% endblock %}

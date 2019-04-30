@@ -16,8 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
+from eshop.views import *
+
+app_name = 'vilka'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('eshop/', include('eshop.urls'))
+    path('', b),
+    path('eshop/', include('eshop.urls')),
 ]
