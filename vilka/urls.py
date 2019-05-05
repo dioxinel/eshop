@@ -22,6 +22,6 @@ app_name = 'vilka'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', b),
+    path('', redirect_to_base_page),
     path('eshop/', include('eshop.urls')),
 ]

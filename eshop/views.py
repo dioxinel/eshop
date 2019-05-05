@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
@@ -7,17 +7,17 @@ from django.http import HttpResponseRedirect
 from django.views.generic.base import View
 from django.contrib.auth import logout
 from .forms import *
-from django.views.decorators.csrf import csrf_protect
-from .forms import *
 
-def a(request):
+
+
+def redirect_to_base_page(request):
+    return redirect('base_url')
+
+def base_page(request):
     a = 'Andriy'
     num_visits=request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits+1
     return render(request, 'eshop/index.html', context={'a':a, 'num_visits':num_visits})
-
-def signin(request):
-    return render(request, 'eshop/sign-in.html')
 
 
 class RegisterFormView(FormView):
@@ -40,11 +40,14 @@ class LoginFormView(FormView):
         login(self.request, self.user)
         return super(LoginFormView, self).form_valid(form)
 
+def signin(request):
+    return render(request, 'eshop/sign-in.html')
+
 
 class LogoutView(View):
     def get(self, request):
         logout(request)
-        return HttpResponseRedirect("eshop/")
+        return HttpResponseRedirect("/")
 
-def b(request):
-    return redirect('base_url')
+def profile(request, username):
+    return render(request, 'eshop/profile.html')
