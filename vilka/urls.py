@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from eshop.views import *
+from django.conf.urls.static import static
+from django.conf import settings
 
 app_name = 'vilka'
 
@@ -24,4 +26,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', redirect_to_base_page),
     path('eshop/', include('eshop.urls')),
+    path('eshop/', include('products.urls')),
+    path('eshop/', include('orders.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

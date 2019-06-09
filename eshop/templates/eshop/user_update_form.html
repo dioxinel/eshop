@@ -1,0 +1,14 @@
+{% extends 'eshop/index.html' %}
+
+{% block title %}
+Profile - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<img src='{{ user.avatar.url }}' alt='error'>
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+{{ form.as_p }}
+<button type="submit" name="button" class="btn btn-primary">Изменить</button>
+</form>
+<h2>{{user.username}}<h2/>
+{% endblock %}

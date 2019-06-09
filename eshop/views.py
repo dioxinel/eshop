@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
-from django.views.generic.edit import FormView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic.edit import FormView, UpdateView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
 from django.http import HttpResponseRedirect
-from django.views.generic.base import View
+from django.views.generic import View, CreateView, DeleteView, UpdateView
 from django.contrib.auth import logout
 from .forms import *
 
@@ -15,14 +15,12 @@ def redirect_to_base_page(request):
 
 def base_page(request):
     a = 'Andriy'
-    num_visits=request.session.get('num_visits', 0)
-    request.session['num_visits'] = num_visits+1
-    return render(request, 'eshop/index.html', context={'a':a, 'num_visits':num_visits})
+    return render(request, 'eshop/index.html', context={'a':a})
 
 
 class RegisterFormView(FormView):
     form_class = RegistrationForm
-    success_url = "/login/"
+    success_url = "/eshop/login/"
     template_name = "eshop/register.html"
 
     def form_valid(self, form):
@@ -51,3 +49,16 @@ class LogoutView(View):
 
 def profile(request, username):
     return render(request, 'eshop/profile.html')
+
+def AvatarUpdate(request, pk):
+    if request.method == 'POST':
+        obj = User.objects.get(username__iexact=pk)
+        form = AvatarUpdateForm(request.POST, request.FILES, instance=obj)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect("/")
+    else:
+        form = AvatarUpdateForm()
+    return render(request, 'eshop/user_update_form.html', {
+        'form': form
+    })

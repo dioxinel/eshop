@@ -5,5 +5,7 @@ Profile - {{ block.super }}
 {% endblock %}
 
 {% block content %}
+<img src='{{ user.avatar.url }}' alt='error'>
+<a href="{{ user.get_avatar_update_url }}">Изменить</a>
 <h2>{{user.username}}<h2/>
 {% endblock %}

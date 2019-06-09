@@ -8,7 +8,7 @@ Login - {{ block.super }}
     <form action="" method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type='button' href="{% url 'register_url' %}">Регистрация</button>
+      <a href="{% url 'register_url' %}">Регистрация</a>
       <button type="submit">Войти</button>
     </form>
 
