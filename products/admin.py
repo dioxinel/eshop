@@ -1,9 +1,15 @@
 from django.contrib import admin
 from products.models import *
+from catalog.models import *
 
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
+    extra = 0
+
+
+class SubcategoryInline(admin.TabularInline):
+    model = Subcategory
     extra = 0
 
 

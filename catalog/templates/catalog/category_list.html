@@ -1,0 +1,13 @@
+{% extends 'eshop/index.html' %}
+
+{% block title %}
+Categories - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+{% for category in categories %}
+  {% if category.section == section %}
+    <a href='#'>{{ category.category_name }}<a/>
+  {% endif %}
+{% endfor %}
+{% endblock %}

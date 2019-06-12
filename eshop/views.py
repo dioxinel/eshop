@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import View, CreateView, DeleteView, UpdateView
 from django.contrib.auth import logout
 from .forms import *
+from .models import User
 
 
 
@@ -41,24 +42,20 @@ class LoginFormView(FormView):
 def signin(request):
     return render(request, 'eshop/sign-in.html')
 
-
 class LogoutView(View):
     def get(self, request):
         logout(request)
         return HttpResponseRedirect("/")
 
+
 def profile(request, username):
     return render(request, 'eshop/profile.html')
 
-def AvatarUpdate(request, pk):
-    if request.method == 'POST':
-        obj = User.objects.get(username__iexact=pk)
-        form = AvatarUpdateForm(request.POST, request.FILES, instance=obj)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect("/")
-    else:
-        form = AvatarUpdateForm()
-    return render(request, 'eshop/user_update_form.html', {
-        'form': form
-    })
+class UserChangeView(UpdateView):
+    model = User
+    fields = ['avatar']
+    template_name_suffix = '_update_form'
+    success_url = "/"
+
+    def get_queryset(self):
+        return User.objects.all()
